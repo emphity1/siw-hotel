@@ -58,7 +58,7 @@
                     <table class="room-table">
                         <thead>
                             <tr>
-                                <th>Nome stanza </th>
+                                <th>Tipo stanza </th>
                                 <th>Capacita'</th>
                                 <th>Disponibilita'</th>
                                 <th>Prenotato da</th>
@@ -79,32 +79,36 @@
             <div class="col-md-6 right-column">
                 <!-- Form per aggiungere una stanza -->
                 <h2>Aggiungi una stanza</h2>
-                <form action="/admin/addRoom" method="POST">
+                <form th:action="@{/admin/addRoom}" method="POST">
                     <div class="form-group">
                         <label for="nome">Nome:</label>
-                        <select id="name" name="name" class="form-control" required>
-                            <option value="singola">Singola</option>
-                            <option value="matrimoniale">Matrimoniale</option>
-                            <option value="suite">Suite</option>
+                        <select th:value="${name}" name="name" class="form-control" required>
+                            <option value="singola">Camera Singola</option>
+                            <option value="matrimoniale">Camera Matrimoniale</option>
+                            <option value="suite">Camera Suite</option>
                         </select>
                     </div>
-                    <div class="form-group" >
+
+                    <div class="form-group">
                         <label for="prezzo">Prezzo:</label>
-                        <input type="number" id="price" name="price" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="capacita">Capacita' stanza:</label>
-                        <input type="text" id="capacity" name="capacity" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="descrizione">Descrizione:</label>
-                        <input type="text" id="desc" name="desc" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="immagine">URL Immagine:</label>
-                        <input type="text" id="immagine" name="immagine" class="form-control" required>
+                        <input type="number" th:value="${price}" name="price" class="form-control" required>
                     </div>
 
+                    <div class="form-group">
+                        <label for="capacita">Capacita' stanza:</label>
+                        <input type="text" th:value="${capacity}" name="capacity" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descrizione">Descrizione:</label>
+                        <input type="text" th:value="${description}" name="description" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="immagine">URL Immagine:</label>
+                        <input type="text" th:value="${img}" name="img" class="form-control" required>
+                    </div>
+                
                     <button type="submit" class="btn btn-primary">Aggiungi</button>
                 </form>
             </div>

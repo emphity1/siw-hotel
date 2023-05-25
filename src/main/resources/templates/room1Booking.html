@@ -46,6 +46,15 @@
         </div>
     </nav>
 
+    <tbody>
+        <tr th:each="room : ${room}">
+            <td th:text="${room.name}"></td>
+            <td th:text="${room.capacity}"></td>
+            <td th:text="${room.available}"></td>
+            <!-- <td th:text="${room.booked_by}"></td> -->
+        </tr>
+    </tbody>
+
     
 
 
