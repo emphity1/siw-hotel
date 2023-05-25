@@ -78,7 +78,6 @@ public String getMovieAdmin(Model model) {
     List<Room> rooms = this.roomRepository.findAll();
 
     model.addAttribute("room", rooms);
-    
     return "/admin/RoomListRoomAdd";
 }
 

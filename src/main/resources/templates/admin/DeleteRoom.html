@@ -47,13 +47,13 @@
         <table class="room-table">
             <thead>
                 <tr>
-                    <th>Tipo stanza</th>
-                    <th>Foto</th>
-                    <th>Capacita'</th>
-                    <th>Disponibilita'</th>
-                    <th>Data di creazione</th>
-                    <th>Prezzo</th>
-                    
+                    <th style="text-align: center;">Tipo stanza</th>
+                    <th style="text-align: center;">Foto</th>
+                    <th style="text-align: center;">Capacita'</th>
+                    <th style="text-align: center;">Disponibilita'</th>
+                    <th style="text-align: center;">Data aggiunta</th>
+                    <th style="text-align: center;">Prezzo</th>
+                    <th style="text-align: center;">Elimina</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,7 +64,13 @@
                     <td th:text="${room.available}"></td>
                     <td th:text="${room.creationDate}"></td>
                     <td th:text="${room.price}"></td>
-                   <!-- <td> Aggiungi qui il codice per visualizzare il nome del cliente prenotato 
+                    <td>
+                        <form th:action="@{/admin/deleteRoom}" method="post">
+                            <input type="hidden" name="roomId" th:value="${room.id}" />
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
+                    </td>
+                   <!-- <td> codice per visualizzare il nome del cliente prenotato 
                         <span th:if="${room.booked_by} != null" th:text="${room.booked_by.name}"></span>
                         <span th:if="${room.booked_by} == null">-</span>
                     </td>

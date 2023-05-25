@@ -195,17 +195,23 @@ table.room-table th {
 .room-table th,
 .room-table td {
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #ffffffbe;
 }
 
 .room-table th {
-    background-color: #f2f2f2;
+    background-color: #28a7463c;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .room-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #28a7463c;
 }
 
 .room-table tr:hover {
-    background-color: #ddd;
+    background-color: #0f920078;
+}
+
+.room-table td {
+    text-align: center;
 }

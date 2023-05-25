@@ -27,7 +27,6 @@ public class Room {
 
     private LocalDate creationDate;
 
- 
 
     @OneToOne(mappedBy = "room")
     private Booking booking;
