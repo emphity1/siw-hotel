@@ -20,7 +20,7 @@ public interface RoomRepository extends CrudRepository<Room, Long> {
     //find room by name
 
 
-    @Query("SELECT r FROM Room r WHERE r.name = :name")
+    @Query("SELECT r FROM Room r WHERE r.name LIKE %:name%")
     List<Room> findAllByExactName(@Param("name") String name);
 
 

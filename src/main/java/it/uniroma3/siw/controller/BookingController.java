@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +43,6 @@ public String addRoom(
                     HttpServletRequest request) {
 
     String referer = request.getHeader("Referer");//uso HttpServletREquest per aggiornare la pagina
-
     Room room = new Room();
     room.setName(name);
     room.setDesc(description);
@@ -50,6 +50,7 @@ public String addRoom(
     room.setPrice(price);
     room.setImg(img);
     room.setAvailable(true);
+    room.setCreationDate(LocalDate.now());
     this.roomRepository.save(room);
     
     return "redirect:" + referer;
@@ -77,10 +78,18 @@ public String getMovieAdmin(Model model) {
     List<Room> rooms = this.roomRepository.findAll();
 
     model.addAttribute("room", rooms);
+    
     return "/admin/RoomListRoomAdd";
 }
 
+@GetMapping("/admin/adminDeleteRoom")
+public String deleteRoom(Model model) {
+    List<Room> rooms = this.roomRepository.findAll();
 
+    model.addAttribute("room", rooms);
+
+    return "/admin/DeleteRoom" ;
+}
 
 
 

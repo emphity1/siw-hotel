@@ -2,6 +2,8 @@ package it.uniroma3.siw.model;
 
 import javax.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Room {
 
@@ -23,6 +25,10 @@ public class Room {
 
     private boolean available;
 
+    private LocalDate creationDate;
+
+ 
+
     @OneToOne(mappedBy = "room")
     private Booking booking;
 
@@ -32,6 +38,15 @@ public class Room {
 
 
     /* ========= GETTERS AND SETTERS =========== */
+
+
+    public LocalDate getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
 
 
     public Booking getBooking() {

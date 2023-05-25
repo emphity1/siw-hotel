@@ -61,7 +61,6 @@
                                 <th>Tipo stanza </th>
                                 <th>Capacita'</th>
                                 <th>Disponibilita'</th>
-                                <th>Prenotato da</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,7 +68,6 @@
                                 <td th:text="${room.name}"></td>
                                 <td th:text="${room.capacity}"></td>
                                 <td th:text="${room.available}"></td>
-                                <!-- <td th:text="${room.booked_by}"></td> -->
                             </tr>
                         </tbody>
                     </table>
@@ -83,9 +81,9 @@
                     <div class="form-group">
                         <label for="nome">Nome:</label>
                         <select th:value="${name}" name="name" class="form-control" required>
-                            <option value="singola">Camera Singola</option>
-                            <option value="matrimoniale">Camera Matrimoniale</option>
-                            <option value="suite">Camera Suite</option>
+                            <option value="Camera Singola">Camera Singola</option>
+                            <option value="Camera Matrimoniale">Camera Matrimoniale</option>
+                            <option value="Camera Suite">Camera Suite</option>
                         </select>
                     </div>
 
