@@ -3,11 +3,13 @@ package it.uniroma3.siw.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,6 +58,26 @@ public String addRoom(
     return "redirect:" + referer;
    // return "/admin/roomList";
 
+}
+
+
+@PostMapping("/admin/deleteRoom/{id}")
+public String deleteRoom(@PathVariable("id") Long id,HttpServletRequest request) {
+    // 1. Find the room by ID
+    Optional<Room> optionalRoom = roomRepository.findById(id);
+
+    String referer = request.getHeader("Referer");
+
+    // 2. Check if the room exists
+    if (optionalRoom.isPresent()) {
+        // 3. Delete the room from the repository
+        Room room = optionalRoom.get();
+        roomRepository.delete(room);
+    } else {
+        return "redirect:" + referer;
+    }
+
+    return "redirect:" + referer;
 }
 
 
