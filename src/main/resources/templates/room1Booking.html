@@ -46,14 +46,30 @@
         </div>
     </nav>
 
-    <tbody>
-        <tr th:each="room : ${room}">
-            <td th:text="${room.name}"></td>
-            <td th:text="${room.capacity}"></td>
-            <td th:text="${room.available}"></td>
-            <!-- <td th:text="${room.booked_by}"></td> -->
-        </tr>
-    </tbody>
+    <table class="room-table">
+        <thead>
+            <tr>
+                <th>Tipo stanza</th>
+                <th>Descrizione</th>
+                <th>Foto</th>
+                <th>Disponibilita'</th>
+                <th>Prezzo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="room : ${room}">
+                <td th:text="${room.name}"></td>
+                <td th:text="${room.desc}"></td>
+                <td><img th:src="${room.img}" alt="Immagine stanza" style="width: 100px;"></td>
+                <td th:text="${room.available}"></td>
+                <td th:text="${room.price}"></td>
+                <td>
+                    <button class="btn btn-primary" th:attr="data-room-id=${room.id}" onclick="bookRoom(this)">Prenota</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
 
     
 

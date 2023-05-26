@@ -195,3 +195,45 @@ footer {
 .reg-succ-label h4{
     padding: 1em;
 }
+
+
+
+/* ====================================*/
+/*  ========    room1.html     =======*/
+/* ==================================*/
+
+
+.room-list-container {
+    margin-top: 20px;
+}
+
+.room-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.room-table th,
+.room-table td {
+    padding: 8px;
+    border: 1px solid #ffffffbe;
+}
+
+.room-table th {
+    background-color: #28a7463c;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.room-table tr:nth-child(even) {
+    background-color: #28a7463c;
+}
+
+.room-table tr:hover {
+    background-color: #0f920078;
+}
+
+.room-table td {
+    text-align: center;
+}
+
+

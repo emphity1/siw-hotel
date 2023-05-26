@@ -89,7 +89,6 @@ public String deleteRoom(@PathVariable("id") Long id,HttpServletRequest request)
 
 
 
-
 /* =============================================================== */
 /* =================     GETMAPPING      ======================== */
 /* ============================================================= */
@@ -122,12 +121,27 @@ public String index() {
 
 @GetMapping(value = "/room1Booking")
 public String getRoom1(Model model) {
-    List<Room> rooms = this.roomRepository.findAllByExactName("Camera Singola");
+    List<Room> rooms = roomRepository.findAllByExactName("Camera Singola");
     model.addAttribute("room", rooms);
-
     return "room1Booking";
-
 }
+@GetMapping(value = "/room2Booking")
+public String getRoom2(Model model) {
+    List<Room> rooms = roomRepository.findAllByExactName("Camera Matrimoniale");
+    model.addAttribute("room", rooms);
+    return "room2Booking";
+}
+
+@GetMapping(value = "/room3Booking")
+public String getRoom3(Model model) {
+    List<Room> rooms = roomRepository.findAllByExactName("Camera Suite");
+    model.addAttribute("room", rooms);
+    return "room3Booking";
+}
+
+
+
+/* 
 @GetMapping(value = "/room2Booking")
 public String getRoom2() {
     return "room2Booking";
@@ -139,6 +153,7 @@ public String getRoom3() {
     return "room3Booking";
 
 }
+*/
 
 @GetMapping(value = "/userBookings")
 public String getUserBookings() {

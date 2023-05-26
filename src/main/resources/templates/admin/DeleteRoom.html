@@ -8,7 +8,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/admin-ui.css">
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Dv4Y0y+B1VNXLv6I8J5a8FWR9Ej5tnBx6nV4W3z+Dfm0Tl5+DTXa7X2x83mwW2ep" crossorigin="anonymous">
     
 </head>
@@ -52,7 +52,7 @@
                     <th style="text-align: center;">Capacita'</th>
                     <th style="text-align: center;">Disponibilita'</th>
                     <th style="text-align: center;">Data aggiunta</th>
-                    <th style="text-align: center;">Prezzo</th>
+                    <th style="text-align: center; cursor: pointer;" data-sort="price">Prezzo</th>
                     <th style="text-align: center;">Elimina</th>
                 </tr>
             </thead>
@@ -63,7 +63,8 @@
                     <td th:text="${room.capacity}"></td>
                     <td th:text="${room.available}"></td>
                     <td th:text="${room.creationDate}"></td>
-                    <td th:text="${room.price}"></td>
+                    <td data-field="price" th:text="${room.price}"></td>
+
                     <td>
                         <form th:action="@{/admin/deleteRoom/{id}(id=${room.id})}" method="post">
                             <button type="submit" class="btn btn-danger">Elimina</button>
@@ -80,9 +81,9 @@
     </div>
     
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
