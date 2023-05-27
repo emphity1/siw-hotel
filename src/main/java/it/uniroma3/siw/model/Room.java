@@ -27,7 +27,11 @@ public class Room {
 
     private LocalDate creationDate;
 
-    private String bookedByUser;
+    //private String bookedByUser;
+
+
+    private String bookedByUsername;
+
 
 
 
@@ -41,14 +45,23 @@ public class Room {
 
     /* ========= GETTERS AND SETTERS =========== */
 
-
-    public String getBookedByUser() {
-        return this.bookedByUser;
+    public String getBookedByUsername() {
+        return this.bookedByUsername;
     }
 
-    public void setBookedByUser(String bookedByUser) {
-        this.bookedByUser = bookedByUser;
+    public void setBookedByUsername(String bookedByUsername) {
+        this.bookedByUsername = bookedByUsername;
     }
+
+
+
+   // public String getBookedByUser() {
+   //     return this.bookedByUser;
+   // }
+
+   // public void setBookedByUser(String bookedByUser) {
+   //     this.bookedByUser = bookedByUser;
+   // }
     
     public LocalDate getCreationDate() {
         return this.creationDate;

@@ -17,9 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Booking;
 import it.uniroma3.siw.model.Room;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.BookingRepository;
 import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.RoomRepository;
 import it.uniroma3.siw.repository.UserRepository;
@@ -40,6 +41,9 @@ public class BookingController {
     @Autowired
     private CredentialsRepository credentialsRepository;
 
+    @Autowired
+    private BookingRepository bookingRepository;
+
 
 /* =============================================================== */
 /* =================    POSTMAPPING     ========================= */
@@ -57,6 +61,7 @@ public String addRoom(
 
     String referer = request.getHeader("Referer");//uso HttpServletREquest per aggiornare la pagina
     Room room = new Room();
+
     room.setName(name);
     room.setDesc(description);
     room.setCapacity(capacity);
@@ -92,29 +97,46 @@ public String deleteRoom(@PathVariable("id") Long id,HttpServletRequest request)
 }
 
 
-/*  ============ DA FIXARE ======0 */
 @PatchMapping("/bookRoom/{id}")
 public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, Principal principal){
+
+
+    //nome dell'utente loggato
+    String userName = principal.getName();
 
     String referer = request.getHeader("Referer");
 
     Optional<Room> optionalRoom = roomRepository.findById(id);
 
-    if(optionalRoom.isPresent() && optionalRoom.get().isAvailable()){
+    //controllo se l'utente ha gia prenotato una stanza
+    boolean hasBooking = bookingRepository.hasBooking(userName);
+
+    if(optionalRoom.isPresent() && optionalRoom.get().isAvailable() && !hasBooking  ){
         Room room = optionalRoom.get();
         room.setAvailable(false);
+        room.setBookedByUsername(userName);
 
-        String userName = principal.getName();
 
         //mi pesco il nome e cognome dell'utente loggato
         String name = userRepository.findNameByUsername(userName);
         String surname = userRepository.findSurnameByUsername(userName);
 
         //aggiungo il nome e cognome dell'utente alla stanza
-        room.setBookedByUser(name + " " + surname);
+
+        //creo un nuovo booking
+        //pesco il nome e cognome dell'utente loggato di TIPO USER
+        //perche setUser accetta solo tipo USER
+        User userNameAndSurename = credentialsRepository.findUserByUserName(userName);
+        Booking booking = new Booking();
+        booking.setUser(userNameAndSurename);
+        booking.setBookedByUser(surname + " " + name);
+        booking.setBookedByUsername(userName);
+        booking.setRoom(room);
+        booking.setBookingDate(LocalDate.now());
+        bookingRepository.save(booking);
 
         roomRepository.save(room);
-        return "redirect:" + referer;
+        return "redirect:/UserBookings" ;
     }
 
     return "redirect:" + referer;
@@ -131,12 +153,16 @@ public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, 
 /* =================     GETMAPPING      ======================== */
 /* ============================================================= */
 
-
+/*da fixare */
 @GetMapping("/UserBookings")
 public String getUserBookings(Model model, Principal principal) {
+    String username = principal.getName();
+    System.out.println("Username: " + username);
 
-    User user = userRepository.findByUsername(principal.getName());
+    List<Room> userBookings = roomRepository.findRoomsBybookedByUsername(username);
 
+
+    model.addAttribute("userBookings", userBookings);
 
     return "/userBookings";
 }
@@ -209,10 +235,6 @@ public String getRoom3() {
 }
 */
 
-@GetMapping(value = "/userBookings")
-    public String getUserBookings() {
-    return "userBookings";
-}
 
   
 

@@ -29,15 +29,15 @@
                     <a class="nav-link" href="/index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Prenotazioni</a>
+                    <a class="nav-link" href="/UserBookings">Prenotazioni</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li th:unless="${#request.userPrincipal}" class="nav-item user-form">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li th:unless="${#request.userPrincipal}" class="nav-item user-form">
-                    <a class="nav-link" href="#">Registrati</a>
+                    <a class="nav-link" href="/register">Registrati</a>
                 </li>
                 <li  class="nav-item user-form" >
                     <a th:if="${#request.userPrincipal}" class="nav-link" href="/logout">Logout</a>

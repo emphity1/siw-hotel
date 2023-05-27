@@ -29,7 +29,7 @@
                     <a class="nav-link" href="/index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Prenotazioni</a>
+                    <a class="nav-link" href="/UserBookings">Prenotazioni</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -40,14 +40,24 @@
                     <a class="nav-link" href="/register">Registrati</a>
                 </li>
                 <li  class="nav-item user-form" >
-                    <a th:if="${#request.userPrincipal}" class="nav-link" href="#">Logout</a>
+                    <a th:if="${#request.userPrincipal}" class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
-
-    <h1 class="user-bookings-text">Le tue prenotazioni</h1>
-    
+ 
+    <div class="container-usr-bk">
+        <h1 class="user-bookings-text">Le tue prenotazioni</h1>
+        <div class="booking-box enlarged-box" th:each="room : ${userBookings}">
+          <img class="room-image" th:src="${room.img}" alt="Foto della stanza" />
+          <div class="room-details">
+            <h3 class="user-room-name"><span th:text="${room.name}"></span></h3>
+            <p><span th:text="${room.desc}"></span></p>
+            <p>Prezzo: <span th:text="${room.price}"></span></p>
+          </div>
+        </div>
+      </div>
+      
 
    
     <footer class="bg-dark text-white text-center py-4">
