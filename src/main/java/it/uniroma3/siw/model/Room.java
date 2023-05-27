@@ -27,6 +27,9 @@ public class Room {
 
     private LocalDate creationDate;
 
+    private String bookedByUser;
+
+
 
     @OneToOne(mappedBy = "room")
     private Booking booking;
@@ -39,6 +42,14 @@ public class Room {
     /* ========= GETTERS AND SETTERS =========== */
 
 
+    public String getBookedByUser() {
+        return this.bookedByUser;
+    }
+
+    public void setBookedByUser(String bookedByUser) {
+        this.bookedByUser = bookedByUser;
+    }
+    
     public LocalDate getCreationDate() {
         return this.creationDate;
     }

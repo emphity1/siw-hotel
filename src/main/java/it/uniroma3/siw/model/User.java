@@ -17,6 +17,24 @@ public class User {
 	@NotBlank
 	private String email;
 
+	@OneToOne
+    private Room bookedRoom;
+
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Credentials credentials;
+
+
+
+
+	public Room getBookedRoom() {
+		return this.bookedRoom;
+	}
+
+	public void setBookedRoom(Room bookedRoom) {
+		this.bookedRoom = bookedRoom;
+	}
+
     public Long getId() {
 		return id;
 	}

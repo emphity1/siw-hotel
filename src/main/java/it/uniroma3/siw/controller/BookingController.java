@@ -3,10 +3,12 @@ package it.uniroma3.siw.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Room;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.RoomRepository;
+import it.uniroma3.siw.repository.UserRepository;
 
 
 
@@ -28,6 +33,12 @@ public class BookingController {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CredentialsRepository credentialsRepository;
 
 
 /* =============================================================== */
@@ -81,6 +92,33 @@ public String deleteRoom(@PathVariable("id") Long id,HttpServletRequest request)
 }
 
 
+/*  ============ DA FIXARE ======0 */
+@PatchMapping("/bookRoom/{id}")
+public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, Principal principal){
+
+    String referer = request.getHeader("Referer");
+
+    Optional<Room> optionalRoom = roomRepository.findById(id);
+
+    if(optionalRoom.isPresent() && optionalRoom.get().isAvailable()){
+        Room room = optionalRoom.get();
+        room.setAvailable(false);
+
+        String userName = principal.getName();
+
+        //mi pesco il nome e cognome dell'utente loggato
+        String name = userRepository.findNameByUsername(userName);
+        String surname = userRepository.findSurnameByUsername(userName);
+
+        //aggiungo il nome e cognome dell'utente alla stanza
+        room.setBookedByUser(name + " " + surname);
+
+        roomRepository.save(room);
+        return "redirect:" + referer;
+    }
+
+    return "redirect:" + referer;
+}
 
 
 
@@ -92,6 +130,16 @@ public String deleteRoom(@PathVariable("id") Long id,HttpServletRequest request)
 /* =============================================================== */
 /* =================     GETMAPPING      ======================== */
 /* ============================================================= */
+
+
+@GetMapping("/UserBookings")
+public String getUserBookings(Model model, Principal principal) {
+
+    User user = userRepository.findByUsername(principal.getName());
+
+
+    return "/userBookings";
+}
 
 
 @GetMapping("/admin/roomList")
@@ -110,6 +158,12 @@ public String deleteRoom(Model model) {
 
     return "/admin/DeleteRoom" ;
 }
+
+
+
+
+
+
 
 
 
@@ -156,7 +210,7 @@ public String getRoom3() {
 */
 
 @GetMapping(value = "/userBookings")
-public String getUserBookings() {
+    public String getUserBookings() {
     return "userBookings";
 }
 
