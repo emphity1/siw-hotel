@@ -54,21 +54,19 @@
                 <th>Foto</th>
                 <th>Disponibilita'</th>
                 <th>Prezzo</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="room : ${room}">
-                <td th:text="${room.name}"></td>
-                <td th:text="${room.desc}"></td>
-                <td><img th:src="${room.img}" alt="Immagine stanza" style="width: 100px;"></td>
-                <td th:text="${room.available}"></td>
-                <td th:text="${room.price}"></td>
-                <td>
-                    <form th:action="@{/bookRoom/{id}(id=${room.id})}" method="post">
-                        <input type="hidden" name="_method" value="PATCH" />
-                        <button type="submit" class="btn btn-primary">Prenota</button>
-                    </form>
-                </td>
+            <tr th:each="booking : ${bookings}">
+                <td th:text="${booking.room.name}"></td>
+                <td th:text="${booking.room.desc}"></td>
+                <td><img th:src="${booking.room.img}" alt="Immagine stanza" style="width: 100px;"></td>
+                <td th:text="${booking.room.available}"></td>
+                <td th:text="${booking.room.price}"></td>
+                <td th:text="${booking.checkInDate}"></td>
+                <td th:text="${booking.checkOutDate}"></td>
             </tr>
         </tbody>
     </table>

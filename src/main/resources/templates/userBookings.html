@@ -48,6 +48,10 @@
  
     <div class="container-usr-bk">
         <h1 class="user-bookings-text">Le tue prenotazioni</h1>
+        <div th:if="${#lists.isEmpty(userBookings)}">
+            <p>Non ci sono prenotazioni</p>
+          </div>
+        
         <div class="booking-box enlarged-box" th:each="room : ${userBookings}">
           <img class="room-image" th:src="${room.img}" alt="Foto della stanza" />
           <div class="room-details">
