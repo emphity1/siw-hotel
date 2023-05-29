@@ -14,11 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
-    
-
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light ">
         <a class="navbar-brand" href="#">Hotel SIW</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +26,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/success" method="GET">Home</a>
+                    <a class="nav-link" href="/index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/UserBookings">Prenotazioni</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -44,31 +45,39 @@
             </ul>
         </div>
     </nav>
-    
-    <h1>ADMIN PANEL</h1>
-    
-    <div class="container admin-panel">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="admin-section">
-                    <h2>Gestione Camere</h2>
-                    <div class="admin-buttons">
-                        <button onclick="location.href='/admin/roomList';" class="btn btn-primary">Aggiungi camera</button>
-                        <button onclick="location.href='/admin/adminDeleteRoom';" class="btn btn-danger">Elimina camera</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="admin-section">
-                    <h2>Gestione Prenotazioni</h2>
-                    <div class="admin-buttons">
-                        <button onclick="location.href='/admin/manageBookings';" class="btn btn-danger">Elimina prenotazione</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    <div class="container">
+        <h2>Prenotazioni Utente</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Stanza</th>
+                    <th>Prenotato da</th>
+                    <th>Data di Prenotazione</th>
+                    <th>Elimina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.room.name}"></td>
+                    <td th:text="${booking.bookedByUser}"></td>
+                    <td th:text="${booking.BookingDate}"></td>
+                    <td>
+                        <form th:action="@{/admin/deleteBooking/{id}(id=${booking.id})}" method="post"  >
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    
+
+
+
+ 
+
+
+   
     <footer class="bg-dark text-white text-center py-4">
         <p>&copy; 2023 Hotel SIW. Tutti i diritti riservati.</p>
     </footer>

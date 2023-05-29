@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,57 +46,12 @@ public class BookingController {
     private BookingRepository bookingRepository;
 
 
+
+
+
 /* =============================================================== */
 /* =================    POSTMAPPING     ========================= */
 /* ============================================================= */
-
-
-@PostMapping("/admin/addRoom")
-public String addRoom(
-                    @RequestParam("name") String name, 
-                    @RequestParam("description") String description, 
-                    @RequestParam("capacity") Integer capacity, 
-                    @RequestParam("price") Float price, 
-                    @RequestParam("img") String img,
-                    HttpServletRequest request) {
-
-    String referer = request.getHeader("Referer");//uso HttpServletREquest per aggiornare la pagina
-    Room room = new Room();
-
-    room.setName(name);
-    room.setDesc(description);
-    room.setCapacity(capacity);
-    room.setPrice(price);
-    room.setImg(img);
-    room.setAvailable(true);
-    room.setCreationDate(LocalDate.now());
-    this.roomRepository.save(room);
-    
-    return "redirect:" + referer;
-   // return "/admin/roomList";
-
-}
-
-
-@PostMapping("/admin/deleteRoom/{id}")
-public String deleteRoom(@PathVariable("id") Long id,HttpServletRequest request) {
-    // 1. Find the room by ID
-    Optional<Room> optionalRoom = roomRepository.findById(id);
-
-    String referer = request.getHeader("Referer");
-
-    // 2. Check if the room exists
-    if (optionalRoom.isPresent()) {
-        // 3. Delete the room from the repository
-        Room room = optionalRoom.get();
-        roomRepository.delete(room);
-    } else {
-        return "redirect:" + referer;
-    }
-
-    return "redirect:" + referer;
-}
-
 
 @PatchMapping("/bookRoom/{id}")
 public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, Principal principal){
@@ -142,6 +98,31 @@ public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, 
     return "redirect:" + referer;
 }
 
+/* ---------  DA FIXARE  ------------------*/
+@Transactional
+@PostMapping("/admin/deleteBooking/{id}")
+public String deleteBooking(@PathVariable("id") Long id, HttpServletRequest request) {
+    Optional<Booking> optionalBooking = bookingRepository.findById(id);
+
+    String referer = request.getHeader("Referer");
+
+    if (optionalBooking.isPresent()) {
+        Booking booking = optionalBooking.get();
+        bookingRepository.delete(booking);
+
+        Room room = booking.getRoom();
+        room.setAvailable(true);
+        roomRepository.save(room);
+        return "redirect:" + referer;
+
+    }
+    return "redirect:" + referer;
+}
+
+
+
+
+
 
 
 
@@ -153,7 +134,15 @@ public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, 
 /* =================     GETMAPPING      ======================== */
 /* ============================================================= */
 
-/*da fixare */
+
+@GetMapping("/admin/manageBookings")
+public String getManageBookings(Model model) {
+    List<Booking> bookings = (List<Booking>) bookingRepository.findAll();
+    model.addAttribute("bookings", bookings);
+    return "/admin/DeleteBooking";
+}
+
+
 @GetMapping("/UserBookings")
 public String getUserBookings(Model model, Principal principal) {
     String username = principal.getName();
@@ -168,22 +157,6 @@ public String getUserBookings(Model model, Principal principal) {
 }
 
 
-@GetMapping("/admin/roomList")
-public String getMovieAdmin(Model model) {
-    List<Room> rooms = this.roomRepository.findAll();
-
-    model.addAttribute("room", rooms);
-    return "/admin/RoomListRoomAdd";
-}
-
-@GetMapping("/admin/adminDeleteRoom")
-public String deleteRoom(Model model) {
-    List<Room> rooms = this.roomRepository.findAll();
-
-    model.addAttribute("room", rooms);
-
-    return "/admin/DeleteRoom" ;
-}
 
 
 
