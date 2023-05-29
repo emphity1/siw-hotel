@@ -98,35 +98,31 @@ public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, 
     return "redirect:" + referer;
 }
 
-/* ---------  DA FIXARE  ------------------*/
 @Transactional
 @PostMapping("/admin/deleteBooking/{id}")
 public String deleteBooking(@PathVariable("id") Long id, HttpServletRequest request) {
     Optional<Booking> optionalBooking = bookingRepository.findById(id);
 
+
     String referer = request.getHeader("Referer");
 
     if (optionalBooking.isPresent()) {
+        //pesco il booking e lo cancello
         Booking booking = optionalBooking.get();
-        bookingRepository.delete(booking);
+        bookingRepository.deleteById(id);
 
+
+        //pesco la stanza e aggiorno il suo stato
         Room room = booking.getRoom();
+
         room.setAvailable(true);
+        room.setBookedByUsername(null);
         roomRepository.save(room);
         return "redirect:" + referer;
 
     }
     return "redirect:" + referer;
 }
-
-
-
-
-
-
-
-
-
 
 
 

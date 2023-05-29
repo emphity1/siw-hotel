@@ -19,7 +19,4 @@ public interface BookingRepository  extends CrudRepository<Booking, Long>  {
 
 
 
-   // @Query("SELECT b FROM Booking b JOIN b.room r WHERE r.bookedByUsername = :userBooking")
-    //List<Booking> findUserBooking(@Param("userBooking") String userBooking);
-    
 }

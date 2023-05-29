@@ -13,7 +13,7 @@ public class Booking {
     private Long id;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -26,6 +26,16 @@ public class Booking {
     private String bookedByUser;
 
     private String bookedByUsername;
+
+
+
+
+
+
+
+
+
+
 
 
     
