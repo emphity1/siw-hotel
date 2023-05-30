@@ -19,6 +19,12 @@ public class Credentials {
     @JoinColumn(name = "user_id")
     private User user;
 	
+
+
+
+	  /* ========= GETTERS AND SETTERS =========== */
+
+
 	public String getUsername() {
 		return username;
 	}

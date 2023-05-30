@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -53,6 +52,8 @@ public class BookingController {
 /* =================    POSTMAPPING     ========================= */
 /* ============================================================= */
 
+
+//l'utente prenota una stanza
 @PatchMapping("/bookRoom/{id}")
 public String bookRoom(@PathVariable("id") Long id, HttpServletRequest request, Principal principal){
 

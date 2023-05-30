@@ -25,6 +25,7 @@ public class User {
     private Credentials credentials;
 
 
+  /* ========= GETTERS AND SETTERS =========== */
 
 
 	public Room getBookedRoom() {

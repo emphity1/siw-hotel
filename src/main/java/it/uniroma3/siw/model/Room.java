@@ -27,12 +27,7 @@ public class Room {
 
     private LocalDate creationDate;
 
-    //private String bookedByUser;
-
-
     private String bookedByUsername;
-
-
 
 
     @OneToOne(mappedBy = "room")
@@ -53,15 +48,6 @@ public class Room {
         this.bookedByUsername = bookedByUsername;
     }
 
-
-
-   // public String getBookedByUser() {
-   //     return this.bookedByUser;
-   // }
-
-   // public void setBookedByUser(String bookedByUser) {
-   //     this.bookedByUser = bookedByUser;
-   // }
     
     public LocalDate getCreationDate() {
         return this.creationDate;

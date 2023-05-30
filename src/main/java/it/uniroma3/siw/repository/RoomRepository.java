@@ -26,8 +26,6 @@ public interface RoomRepository extends CrudRepository<Room, Long> {
 
 
 
-    //@Query("SELECT r FROM Room r WHERE r.bookedByUsername = :username")
-   // List<Room> findRoomsByBookedUsername(@Param("username") String username);
    List<Room> findRoomsBybookedByUsername(String username);
 
 

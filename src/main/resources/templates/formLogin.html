@@ -51,6 +51,9 @@
                 <form th:action="@{/login}" method="POST">
                     <input type="text" name="username" placeholder="Username" required><br>
                     <input type="password" name="password" placeholder="Password" required><br>
+                    <div>
+                        <span class="pass-error" th:if="${param.error != null}">Username o password errati</span>
+                    </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
             </div>
