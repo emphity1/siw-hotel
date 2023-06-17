@@ -13,7 +13,7 @@
     
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <a class="navbar-brand" href="#">Hotel SIW</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,7 @@
             <tbody>
                 <tr th:each="room : ${room}">
                     <td th:text="${room.name}"></td>
-                    <td><img th:src="${room.img}" alt="Immagine stanza" style="width: 100px;"></td>
+                    <td><img th:src="'data:image/jpeg;base64,' + ${roomPhotos.get(room.id)}" alt="Immagine stanza" style="width: 100px;"></td>
                     <td th:text="${room.capacity}"></td>
                     <td th:text="${room.available}"></td>
                     <td th:text="${room.creationDate}"></td>

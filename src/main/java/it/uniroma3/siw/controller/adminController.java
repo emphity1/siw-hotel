@@ -11,10 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class adminController {
 
-@GetMapping(value = "/admin/getAdminIndex")
-public String getAdminIndex() {
-    return "admin/adminIndex.html";
-}
+    @GetMapping(value = "/admin/getAdminIndex")
+        public String getAdminIndex() {
+            return "admin/adminIndex.html";
+    }
+
+    @GetMapping("/admin/updateHome")
+    public String updateHome() {
+        return "index.html";
+    }
+
 
 
     

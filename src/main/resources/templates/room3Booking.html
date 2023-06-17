@@ -7,12 +7,13 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light ">
@@ -27,7 +28,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/index">Home</a>
                 </li>
-                <li class="nav-item">
+                <li th:if="${#request.userPrincipal}" class="nav-item">
                     <a class="nav-link" href="/UserBookings">Prenotazioni</a>
                 </li>
             </ul>
@@ -59,14 +60,19 @@
             <tr th:each="room : ${room}">
                 <td th:text="${room.name}"></td>
                 <td th:text="${room.desc}"></td>
-                <td><img th:src="${room.img}" alt="Immagine stanza" style="width: 100px;"></td>
+                <td><img th:src="'data:image/jpeg;base64,' + ${roomPhotos.get(room.id)}" alt="Immagine stanza" style="width: 100px;"></td>
                 <td th:text="${room.available}"></td>
                 <td th:text="${room.price}"></td>
                 <td>
-                    <form th:action="@{/bookRoom/{id}(id=${room.id})}" method="post">
-                        <input type="hidden" name="_method" value="PATCH" />
-                        <button type="submit" class="btn btn-primary">Prenota</button>
-                    </form>
+                    <div th:if="${#request.userPrincipal}">
+                        <form th:action="@{/bookRoom/{id}(id=${room.id})}" method="post">
+                            <input type="hidden" name="_method" value="PATCH" />
+                            <button type="submit" class="btn btn-primary">Prenota</button>
+                        </form>
+                    </div>
+                    <div th:unless="${#request.userPrincipal}">
+                        <a class="btn btn-primary" href="/login">Prenota</a>
+                    </div>
                 </td>
             </tr>
         </tbody>

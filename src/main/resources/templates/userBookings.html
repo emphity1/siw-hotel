@@ -53,7 +53,7 @@
           </div>
         
         <div class="booking-box enlarged-box" th:each="room : ${userBookings}">
-          <img class="room-image" th:src="${room.img}" alt="Foto della stanza" />
+          <img class="room-image" th:src="'data:image/jpeg;base64,' + ${roomPhotos.get(room.id)}" alt="Foto della stanza" />
           <div class="room-details">
             <h3 class="user-room-name"><span th:text="${room.name}"></span></h3>
             <p><span th:text="${room.desc}"></span></p>

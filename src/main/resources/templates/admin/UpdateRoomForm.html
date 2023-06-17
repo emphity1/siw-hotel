@@ -42,7 +42,7 @@
         <div class="row justify-content-between" >
             <div class="col-md-6 left-column">
                 <!-- Lista delle stanze -->
-                <h2>Lista delle stanze</h2>
+                <h2>Stanza</h2>
                 <div class="room-list-container">
                     <table class="room-table">
                         <thead>
@@ -57,7 +57,7 @@
                         <tbody>
                             <tr th:each="room : ${room}">
                                 <td th:text="${room.name}"></td>
-                                <td><img th:src="${room.img}" alt="Immagine stanza" style="width: 100px;"></td>
+                                <td><img th:src="'data:image/jpeg;base64,' + ${photo}" alt="Immagine stanza" style="width: 100px;"></td>
                                 <td th:text="${room.capacity}"></td>
                                 <td th:text="${room.available}"></td>
                                 <td th:text="${room.price}"></td>
@@ -69,8 +69,8 @@
             </div>
             <div class="col-md-6 right-column">
                 <!-- Form per aggiungere una stanza -->
-                <h2>Aggiungi una stanza</h2>
-                <form th:action="@{/admin/upateRoomRequest/{id}(id=${room.id})}" method="POST">
+                <h2>Aggiorna la stanza</h2>
+                <form th:action="@{/admin/upateRoomRequest/{id}(id=${room.id})}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nome">Nome:</label>
                         <select th:value="${name}" name="name" class="form-control" required>
@@ -95,12 +95,13 @@
                         <input type="text" th:value="${description}" name="description" class="form-control" required>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="immagine">URL Immagine:</label>
-                        <input type="text" th:value="${img}" name="img" class="form-control" required>
+                        <label for="photo">Foto stanza:</label>
+                        <input type="file" th:value="${photo}" name="photo" class="form-control" accept="image/*" required>
                     </div>
                 
-                    <button type="submit" class="btn btn-primary">Aggiungi</button>
+                    <button type="submit" class="btn btn-primary">Aggiorna</button>
                 </form>
             </div>
         </div>

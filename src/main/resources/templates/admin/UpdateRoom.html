@@ -13,7 +13,7 @@
     
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <a class="navbar-brand" href="#">Hotel SIW</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
 
 <body>
     <h1>Aggiorna stanza</h1>
-    <div class="room-list-container">
+    <div class="room-list-container ">
         <table class="room-table">
             <thead>
                 <tr>
@@ -55,25 +55,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="room : ${room}">
+                <tr th:each="room : ${rooms}">
                     <td th:text="${room.name}"></td>
-                    <td><img th:src="${room.img}" alt="Immagine stanza" style="width: 100px;"></td>
+                    <td><img th:src="'data:image/jpeg;base64,' + ${roomPhotos.get(room.id)}" alt="Immagine stanza" style="width: 100px;"></td>
                     <td th:text="${room.capacity}"></td>
                     <td th:text="${room.available}"></td>
                     <td th:text="${room.creationDate}"></td>
                     <td data-field="price" th:text="${room.price}"></td>
                     <td th:text="${room.bookedByUsername}"></td>
-
                     <td>
                         <form th:action="@{/admin/updateRoom/{id}(id=${room.id})}" method="GET">
                             <button type="submit" class="btn btn-primary">Aggiorna</button>
                         </form>
                     </td>
-                   <!-- <td> codice per visualizzare il nome del cliente prenotato 
-                        <span th:if="${room.booked_by} != null" th:text="${room.booked_by.name}"></span>
-                        <span th:if="${room.booked_by} == null">-</span>
-                    </td>
-                        -->
                 </tr>
             </tbody>
         </table>

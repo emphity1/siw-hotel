@@ -21,7 +21,9 @@ public class Room {
 
     private Float price;
 
-    private String img;
+
+    private byte[] photo;
+
 
     private boolean available;
 
@@ -39,6 +41,16 @@ public class Room {
 
 
     /* ========= GETTERS AND SETTERS =========== */
+
+
+
+    public byte[] getPhoto() {
+        return this.photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
 
     public String getBookedByUsername() {
         return this.bookedByUsername;
@@ -107,13 +119,7 @@ public class Room {
         this.price = price;
     }
 
-    public String getImg() {
-        return this.img;
-    }
 
-    public void setImg(String img) {
-        this.img = img;
-    }
 
     public boolean isAvailable() {
         return this.available;

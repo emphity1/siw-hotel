@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -147,63 +151,85 @@ public String getUserBookings(Model model, Principal principal) {
 
     List<Room> userBookings = roomRepository.findRoomsBybookedByUsername(username);
 
+    Map<Long, String> roomPhotos = new HashMap<>();
+
+    // Cerco id di ogni stanza, trovo la foto e la converto in stringa
+    for (Room room : userBookings) {
+        byte[] photoBytes = room.getPhoto();
+        String photo = Base64.getEncoder().encodeToString(photoBytes);
+        roomPhotos.put(room.getId(), photo); // Aggiungo la foto alla mappa associandola all'id della stanza
+    }
+
+    model.addAttribute("roomPhotos", roomPhotos); // Aggiungo la mappa al modello
+
 
     model.addAttribute("userBookings", userBookings);
 
-    return "/userBookings";
+    return "userBookings.html";
 }
-
-
-
-
-
-
-
 
 
 
 
 @GetMapping(value = "/index")
 public String index() {
-    return "index";
+    return "index.html";
 }
 
 
 @GetMapping(value = "/room1Booking")
 public String getRoom1(Model model) {
     List<Room> rooms = roomRepository.findAllByExactName("Camera Singola");
+    // Creazione della mappa per le foto delle stanze
+    Map<Long, String> roomPhotos = new HashMap<>();
+
+    // Cerco id di ogni stanza, trovo la foto e la converto in stringa
+    for (Room room : rooms) {
+        byte[] photoBytes = room.getPhoto();
+        String photo = Base64.getEncoder().encodeToString(photoBytes);
+        roomPhotos.put(room.getId(), photo); // Aggiungo la foto alla mappa associandola all'id della stanza
+    }
+    model.addAttribute("roomPhotos", roomPhotos); // Aggiungo la mappa al modello
     model.addAttribute("room", rooms);
-    return "room1Booking";
+    return "room1Booking.html";
 }
+
+
 @GetMapping(value = "/room2Booking")
 public String getRoom2(Model model) {
-    List<Room> rooms = roomRepository.findAllByExactName("Camera Matrimoniale");
+    List<Room> rooms = roomRepository.findAllByExactName("Camera Doppia");
+        // Creazione della mappa per le foto delle stanze
+        Map<Long, String> roomPhotos = new HashMap<>();
+
+        // Cerco id di ogni stanza, trovo la foto e la converto in stringa
+        for (Room room : rooms) {
+            byte[] photoBytes = room.getPhoto();
+            String photo = Base64.getEncoder().encodeToString(photoBytes);
+            roomPhotos.put(room.getId(), photo); // Aggiungo la foto alla mappa associandola all'id della stanza
+        }
+    model.addAttribute("roomPhotos", roomPhotos); // Aggiungo la mappa al modello
     model.addAttribute("room", rooms);
-    return "room2Booking";
+    return "room2Booking.html";
 }
 
 @GetMapping(value = "/room3Booking")
 public String getRoom3(Model model) {
     List<Room> rooms = roomRepository.findAllByExactName("Camera Suite");
+        // Creazione della mappa per le foto delle stanze
+        Map<Long, String> roomPhotos = new HashMap<>();
+
+        // Cerco id di ogni stanza, trovo la foto e la converto in stringa
+        for (Room room : rooms) {
+            byte[] photoBytes = room.getPhoto();
+            String photo = Base64.getEncoder().encodeToString(photoBytes);
+            roomPhotos.put(room.getId(), photo); // Aggiungo la foto alla mappa associandola all'id della stanza
+        }
+    model.addAttribute("roomPhotos", roomPhotos); // Aggiungo la mappa al modello
     model.addAttribute("room", rooms);
-    return "room3Booking";
+    return "room3Booking.html";
 }
 
 
-
-/* 
-@GetMapping(value = "/room2Booking")
-public String getRoom2() {
-    return "room2Booking";
-
-}
-
-@GetMapping(value = "/room3Booking")
-public String getRoom3() {
-    return "room3Booking";
-
-}
-*/
 
 
   

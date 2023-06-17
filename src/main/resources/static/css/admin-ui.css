@@ -216,3 +216,22 @@ table.room-table th {
     text-align: center;
 }
 
+
+
+/* ==============================================*/
+/*  ========      updateRoom     =========*/
+/* ============================================*/
+
+
+.room-list-container {
+    min-height: 100vh;
+    padding-top: 20px;
+}
+
+body h1{
+    padding-top: 80px;
+}
+
+
+
+
