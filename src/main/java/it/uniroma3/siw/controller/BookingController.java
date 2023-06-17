@@ -197,7 +197,7 @@ public String getRoom1(Model model) {
 
 @GetMapping(value = "/room2Booking")
 public String getRoom2(Model model) {
-    List<Room> rooms = roomRepository.findAllByExactName("Camera Doppia");
+    List<Room> rooms = roomRepository.findAllByExactName("Camera Matrimoniale");
         // Creazione della mappa per le foto delle stanze
         Map<Long, String> roomPhotos = new HashMap<>();
 

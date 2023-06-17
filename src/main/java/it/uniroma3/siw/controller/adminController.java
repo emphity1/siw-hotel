@@ -15,13 +15,5 @@ public class adminController {
         public String getAdminIndex() {
             return "admin/adminIndex.html";
     }
-
-    @GetMapping("/admin/updateHome")
-    public String updateHome() {
-        return "index.html";
-    }
-
-
-
     
 }
