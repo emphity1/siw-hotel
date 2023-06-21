@@ -160,9 +160,8 @@ public String getUserBookings(Model model, Principal principal) {
         roomPhotos.put(room.getId(), photo); // Aggiungo la foto alla mappa associandola all'id della stanza
     }
 
+
     model.addAttribute("roomPhotos", roomPhotos); // Aggiungo la mappa al modello
-
-
     model.addAttribute("userBookings", userBookings);
 
     return "userBookings.html";
@@ -231,7 +230,5 @@ public String getRoom3(Model model) {
 
 
 
-
-  
 
 }

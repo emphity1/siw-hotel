@@ -22,7 +22,8 @@ public class Credentials {
 
 
 
-	  /* ========= GETTERS AND SETTERS =========== */
+
+	/* ========= GETTERS AND SETTERS =========== */
 
 
 	public String getUsername() {

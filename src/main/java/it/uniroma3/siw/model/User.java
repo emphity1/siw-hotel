@@ -20,9 +20,13 @@ public class User {
 	@OneToOne
     private Room bookedRoom;
 
-
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Credentials credentials;
+
+
+
+
+
 
 
   /* ========= GETTERS AND SETTERS =========== */

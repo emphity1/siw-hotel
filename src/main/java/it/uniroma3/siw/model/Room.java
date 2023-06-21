@@ -17,8 +17,10 @@ public class Room {
     @Column(name = "description")//parola riservata?
     private String desc;
 
+    @Column(nullable = false)
     private Integer capacity;
 
+    @Column(nullable = false)
     private Float price;
 
 
@@ -27,8 +29,10 @@ public class Room {
 
     private boolean available;
 
+    @Column(nullable = false)
     private LocalDate creationDate;
 
+    @Column(nullable = false)
     private String bookedByUsername;
 
 

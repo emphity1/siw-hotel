@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.encrypt.BytesEncryptor;
-
 import it.uniroma3.siw.model.Room;
 import it.uniroma3.siw.repository.RoomRepository;
 
@@ -35,9 +31,6 @@ public class RoomController {
 
     @Autowired
     private RoomRepository roomRepository;
-
-
-
 
 
 /* =============================================================== */
@@ -122,7 +115,7 @@ public class RoomController {
             }catch(Exception e){
                 e.printStackTrace();
             }
-            roomRepository.save(room);
+        roomRepository.save(room);
         } else {
             return "redirect:" + referer;
         }
@@ -164,7 +157,6 @@ public String deleteRoom(Model model) {
     }
 
     model.addAttribute("roomPhotos", roomPhotos); // Aggiungo la mappa al modello
-
     model.addAttribute("room", rooms);
 
     return "admin/DeleteRoom.html" ;

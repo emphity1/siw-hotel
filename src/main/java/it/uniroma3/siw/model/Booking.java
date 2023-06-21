@@ -13,7 +13,7 @@ public class Booking {
     private Long id;
 
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -21,14 +21,20 @@ public class Booking {
     @JoinColumn(name = "room_id")
     private Room room;
 
+    @Column(nullable = false)
     private LocalDate BookingDate;
 
+    @Column(nullable = false)
     private String bookedByUser;
 
+    @Column(nullable = false)
     private String bookedByUsername;
 
 
 
+
+
+    
     /* ========= GETTERS AND SETTERS =========== */
 
     public String getBookedByUsername() {
